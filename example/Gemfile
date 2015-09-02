@@ -1,0 +1,8 @@
+source 'https://rubygems.org'
+
+gem 'opal', '~> 0.7.2'
+gem 'opal-knockout', path: '..'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-knockoutjs', '3.3.0'
+end
