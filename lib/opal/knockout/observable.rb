@@ -2,23 +2,24 @@ module Knockout
   class Observable
 
     def initialize(value=nil)
-      @data = `ko.observable(#{value})`
+      @native = `ko.observable()`
+      set(value) unless value.nil?
     end
 
     def to_s
       get_value
     end
 
-    def get
-      @data
+    def to_n
+      @native
     end
 
     def get_value()
-      `#{@data}()`
+      `#@native()`
     end
 
     def set(val)
-      `#{@data}(#{val})`
+      `#@native(#{val})`
     end
   end
 end

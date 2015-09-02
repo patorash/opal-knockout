@@ -4,12 +4,24 @@
   <title>opal-knockout example</title>
 </head>
 <body>
-<dl data-bind="with: user">
-  <dt>Name:</dt>
-  <dd data-bind="text: name"></dd>
-  <dt>Age:</dt>
-  <dd data-bind="text: age"></dd>
-</dl>
+<div data-bind="with: user">
+  <dl>
+    <dt>Name:</dt>
+    <dd data-bind="text: name"></dd>
+    <dt>Age:</dt>
+    <dd data-bind="text: age"></dd>
+  </dl>
+  <table>
+    <tbody data-bind="foreach: items">
+      <tr>
+        <td data-bind="text: title"></td>
+        <td data-bind="text: price"></td>
+        <td data-bind="text: created_at"></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 <%= javascript_include_tag @server.main %>
 </body>
 </html>
