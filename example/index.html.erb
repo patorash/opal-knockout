@@ -4,7 +4,12 @@
   <title>opal-knockout example</title>
 </head>
 <body>
-<div id="foo"></div>
+<dl data-bind="with: user">
+  <dt>Name:</dt>
+  <dd data-bind="text: name"></dd>
+  <dt>Age:</dt>
+  <dd data-bind="text: age"></dd>
+</dl>
 <%= javascript_include_tag @server.main %>
 </body>
 </html>
