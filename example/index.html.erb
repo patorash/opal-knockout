@@ -11,6 +11,13 @@
     <dt>Age:</dt>
     <dd data-bind="text: age"></dd>
   </dl>
+  <button type="button" data-bind="click: $increment_age">
+    加齢
+  </button>
+  <button type="button" data-bind="click: $decrement_age">
+    減齢
+  </button>
+
   <table>
     <caption data-bind="text: items.$size()"></caption>
     <tbody data-bind="foreach: items">
@@ -21,6 +28,8 @@
       </tr>
     </tbody>
   </table>
+
+  <p data-bind="text: hoge"></p>
 
 </div>
 <%= javascript_include_tag @server.main %>

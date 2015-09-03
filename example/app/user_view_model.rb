@@ -1,6 +1,7 @@
 class UserViewModel < Knockout::ViewModel
   attr_observable :name, :age
-  attr_observable_array :items
+  attr_observable_array :items, :words
+  attr_accessor :hoge
 
   def initialize(name=nil, age=nil)
     self.name = name
@@ -15,5 +16,16 @@ class UserViewModel < Knockout::ViewModel
     items = self.items.to_a.first(3)
     self.items.remove(items)
     self.items.reverse
+    self.items.push(Item.new("abcde", 4000, Time.new(2015,9,3)))
+    self.words = %w(abcde fghij klmno)
+    self.hoge = `ko.computed(function(){ return #{self.words.index_of("fghij")} }, this)`
+  end
+
+  def increment_age
+    self.age += 1
+  end
+
+  def decrement_age
+    self.age -= 1
   end
 end

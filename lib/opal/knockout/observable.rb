@@ -21,5 +21,13 @@ module Knockout
     def set(val)
       `#@native(#{val})`
     end
+
+    def +(val)
+      get_value.to_n.+(val)
+    end
+
+    def -(val)
+      get_value.to_n.-(val)
+    end
   end
 end

@@ -80,5 +80,9 @@ module Knockout
     def destroy_all
       `#@data.destroyAll()`
     end
+
+    def index_of(str)
+      `#@data.indexOf(#{str})`
+    end
   end
 end
