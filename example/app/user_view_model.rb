@@ -18,7 +18,10 @@ class UserViewModel < Knockout::ViewModel
     self.items.reverse
     self.items.push(Item.new("abcde", 4000, Time.new(2015,9,3)))
     self.words = %w(abcde fghij klmno)
-    self.hoge = `ko.computed(function(){ return #{self.words.index_of("fghij")} }, this)`
+    # self.hoge = `ko.computed(function(){ return #{self.words.index_of("fghij")} }, this)`
+    self.hoge = computed do
+      self.words.index_of("fghij")
+    end
     puts self.words.slice(1)
     puts self.words.slice(-1)
   end

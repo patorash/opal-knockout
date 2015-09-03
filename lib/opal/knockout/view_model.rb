@@ -51,5 +51,13 @@ module Knockout
         end
       end
     end
+
+    def computed(&block)
+      %x{
+        return ko.computed(function() {
+          return #{block.call};
+        }, this);
+      }
+    end
   end
 end
