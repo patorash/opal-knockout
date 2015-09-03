@@ -2,19 +2,16 @@ module Knockout
   class ObservableArray
 
     def initialize(array=nil)
+      # なぜか@dataじゃないと動かない…。
       @data = `ko.observableArray()`
-      set(array) unless array.nil?
-    end
-
-    def to_s
-      to_n
+      self.set(array) unless array.nil?
     end
 
     def to_n
       @data
     end
 
-    def to_a()
+    def to_a
       `#@data()`
     end
 
@@ -48,7 +45,7 @@ module Knockout
 
     def remove_if(&block)
       %x{
-      #@data.remove(function(item) {
+        #@data.remove(function(item) {
           return #{block.call(`item`)};
         });
       }
@@ -70,7 +67,7 @@ module Knockout
 
     def destroy_if(&block)
       %x{
-      #@data.destroy(function(item) {
+        #@data.destroy(function(item) {
           return #{block.call(`item`)};
         });
       }

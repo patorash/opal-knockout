@@ -1,6 +1,4 @@
-class UserViewModel
-  include Knockout::ViewModel
-
+class UserViewModel < Knockout::ViewModel
   attr_observable :name, :age
   attr_observable_array :items
 
@@ -16,6 +14,6 @@ class UserViewModel
     end
     items = self.items.to_a.first(3)
     self.items.remove(items)
-    # self.items.remove_all!
+    self.items.reverse
   end
 end

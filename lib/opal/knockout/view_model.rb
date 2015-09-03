@@ -1,11 +1,6 @@
 module Knockout
-  module ViewModel
-
-    def self.included(klass)
-      klass.extend ClassMethods
-    end
-
-    module ClassMethods
+  class ViewModel
+    class << self
       def attr_observable(*names)
         case
           when names.instance_of?(Array)
