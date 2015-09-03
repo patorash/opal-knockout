@@ -84,5 +84,13 @@ module Knockout
     def index_of(str)
       `#@data.indexOf(#{str})`
     end
+
+    def slice(_start=0, _end=nil)
+      if _end.nil?
+        `#@data.slice(#{_start})`
+      else
+        `#@data.slice(#{_start}, #{_end})`
+      end
+    end
   end
 end
