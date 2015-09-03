@@ -7,6 +7,10 @@ module Knockout
       self.set(array) unless array.nil?
     end
 
+    def size
+      `#{to_a}.length`
+    end
+
     def to_n
       @data
     end

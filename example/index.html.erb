@@ -12,6 +12,7 @@
     <dd data-bind="text: age"></dd>
   </dl>
   <table>
+    <caption data-bind="text: items.$size()"></caption>
     <tbody data-bind="foreach: items">
       <tr>
         <td data-bind="text: title"></td>

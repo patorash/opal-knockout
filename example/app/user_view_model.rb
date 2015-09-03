@@ -2,7 +2,7 @@ class UserViewModel < Knockout::ViewModel
   attr_observable :name, :age
   attr_observable_array :items
 
-  def initialize(name: nil, age: nil)
+  def initialize(name=nil, age=nil)
     self.name = name
     self.age = age
     self.items = (1..10).map {|i| Item.new("title_#{i}", i*1000, Time.new(2015,9,i)) }
