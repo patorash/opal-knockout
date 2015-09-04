@@ -1,6 +1,15 @@
 module Knockout
   class ViewModel
     class << self
+      @@computed_methods = {}
+
+      def new( *args, &blk )
+        object = allocate
+        object.instance_eval{ initialize( *args, &blk ) }
+        object.after_initialize
+        object
+      end
+
       def attr_observable(*names)
         case
           when names.instance_of?(Array)
@@ -21,6 +30,10 @@ module Knockout
           else
             raise_error
         end
+      end
+
+      def attr_computed(name, &block)
+        @@computed_methods[name] = block
       end
 
       private
@@ -52,12 +65,20 @@ module Knockout
       end
     end
 
-    def computed(&block)
-      %x{
-        return ko.computed(function() {
-          return #{block.call};
-        }, this);
-      }
-    end
+    # def computed(&block)
+    #   Knockout::Computed.new{ block.call }
+    # end
+
+    private
+      def after_initialize
+        puts "after initialize"
+        set_computed_variables
+      end
+
+      def set_computed_variables
+        @@computed_methods.each do |name, block|
+          instance_variable_set(:"@#{name}", Knockout::Computed.new{ self.instance_eval(&block) } ) unless instance_variable_defined?(:"@#{name}")
+        end
+      end
   end
 end
