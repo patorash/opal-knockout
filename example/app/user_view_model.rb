@@ -6,7 +6,9 @@ class UserViewModel < Knockout::ViewModel
     self.words.index_of("fghij")
   end
 
-  # attr_computed :foo, :search_fghij
+  attr_computed :foo, :search_fghij
+
+  attr_computed :bar
 
   def initialize(name=nil, age=nil)
     # `debugger`
@@ -41,8 +43,8 @@ class UserViewModel < Knockout::ViewModel
     self.age -= 1
   end
 
-  # private
-  # def search_fghij
-  #   self.words.index_of("fghij")
-  # end
+  private
+  def search_fghij
+    "#{name}さんは#{age}歳です。"
+  end
 end

@@ -17,7 +17,7 @@ module Knockout
           when names.instance_of?(String) || names.instance_of?(Symbol)
             define_observable_accessor(names)
           else
-            raise_error
+            # TODO: 例外
         end
       end
 
@@ -28,12 +28,19 @@ module Knockout
           when names.instance_of?(String) || names.instance_of?(Symbol)
             define_observable_array_accessor(names)
           else
-            raise_error
+            # TODO: 例外
         end
       end
 
-      def attr_computed(name, &block)
-        @@computed_methods[name] = block
+      def attr_computed(name, method_name=nil, &block)
+        # TODO: 例外
+        return if method_name.nil? && !block_given?
+
+        @@computed_methods[name] = if method_name.nil?
+                                     block
+                                   else
+                                     method_name
+                                   end
       end
 
       private
@@ -76,8 +83,14 @@ module Knockout
       end
 
       def set_computed_variables
-        @@computed_methods.each do |name, block|
-          instance_variable_set(:"@#{name}", Knockout::Computed.new{ self.instance_eval(&block) } ) unless instance_variable_defined?(:"@#{name}")
+        @@computed_methods.each do |name, method_name|
+          if method_name.is_a? Proc
+            # `debugger`
+            block = method_name
+            instance_variable_set(:"@#{name}", Knockout::Computed.new{ self.instance_eval(&block) } )
+          else
+            instance_variable_set(:"@#{name}", Knockout::Computed.new{ self.method(method_name).call } )
+          end
         end
       end
   end
