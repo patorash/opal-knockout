@@ -2,15 +2,14 @@ class UserFormViewModel < Knockout::ViewModel
   attr_observable :name, :age
   attr_computed :data, :show_data
 
-  def initialize
-    # self.name = 'patorash'
+  def initialize(list_view_model)
+    @list_view_model = list_view_model
+    self.name = ''
     self.age = 0
   end
 
   def add_user_list
-
-    list = `app_view_model.user_list_view_model`
-    list.users.push(User.new(self.name.to_s, self.age.to_s))
+    @list_view_model.users.push(User.new(self.name.to_s, self.age.to_s))
     clear_form
   end
 
