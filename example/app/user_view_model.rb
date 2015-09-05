@@ -45,6 +45,6 @@ class UserViewModel < Knockout::ViewModel
 
   private
   def search_fghij
-    "#{name.get_value}さんは#{age.get_value}歳です。"
+    "#{name.call}さんは#{age.call}歳です。"
   end
 end

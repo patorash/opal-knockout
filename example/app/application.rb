@@ -27,6 +27,7 @@
 
 %x{
   app_view_model = {
+    user: #{UserViewModel.new('Bob', 25)},
     user_form_view_model: #{UserFormViewModel.new},
     user_list_view_model: #{UserListViewModel.new}
   }

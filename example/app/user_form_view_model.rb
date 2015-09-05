@@ -11,6 +11,7 @@ class UserFormViewModel < Knockout::ViewModel
 
     list = `app_view_model.user_list_view_model`
     list.users.push(User.new(self.name.call, self.age.call))
+    # `#{list.users}.push(#{User.new(self.name.call, self.age.call)})`
     clear_form
   end
 

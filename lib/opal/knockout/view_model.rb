@@ -52,24 +52,24 @@ module Knockout
         self._observables << name
 
         define_method name do
-          instance_variable_get(:"@#{name}").to_n
+          instance_variable_get(:"@#{name}")
         end
 
         define_method "#{name}=" do |value|
-          observable = instance_variable_get(:"@#{name}")
-          observable.set(value)
+          instance_variable_get(:"@#{name}").call(value)
         end
       end
 
       def define_observable_array_accessor(name)
-        attr_reader name
         self._observable_arrays ||= []
         self._observable_arrays << name
 
-        define_method "#{name}=" do |val|
-          observable_array = instance_variable_get(:"@#{name}")
-          observable_array.set(val)
-          self
+        define_method name do
+          instance_variable_get(:"@#{name}")
+        end
+
+        define_method "#{name}=" do |value|
+          instance_variable_get(:"@#{name}").call(value)
         end
       end
     end
@@ -92,13 +92,18 @@ module Knockout
 
       def set_observables
         (self.class._observables || []).each do |name|
-          instance_variable_set(:"@#{name}", Knockout::Observable.new(''))
+          # instance_variable_set(:"@#{name}", Knockout::Observable.new(''))
+          instance_variable_set(:"@#{name}", `ko.observable()`)
         end
       end
 
       def set_observable_arrays
         (self.class._observable_arrays || []).each do |name|
-          instance_variable_set(:"@#{name}", Knockout::ObservableArray.new([]))
+          instance_variable_set(:"@#{name}", `ko.observableArray()`)
+          observable_array = instance_variable_get(:"@#{name}")
+          observable_array.instance_eval do
+            extend Knockout::ObservableArray
+          end
         end
       end
 
