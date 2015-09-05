@@ -9,8 +9,7 @@ module Knockout
     end
 
     def to_s
-      `#{@callback}()`
-      # `return #@callback`
+      @callback.call
     end
 
     def to_n

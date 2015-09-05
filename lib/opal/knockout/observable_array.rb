@@ -8,7 +8,8 @@ module Knockout
     end
 
     def size
-      `#{to_a}.length`
+      to_a.size
+      # `#{to_a}.length`
     end
 
     def to_n
@@ -16,11 +17,11 @@ module Knockout
     end
 
     def to_a
-      `#@data()`
+      @data.call
     end
 
-    def set(val)
-      `#@data(#{val})`
+    def set(value)
+      @data.call(value)
     end
 
     def push(item)

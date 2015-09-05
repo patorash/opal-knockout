@@ -8,19 +8,28 @@ class UserFormViewModel < Knockout::ViewModel
   end
 
   def add_user_list
-    puts "Hello"
+
+    list = `app_view_model.user_list_view_model`
+    list.users.push(User.new(self.name.call, self.age.call))
+    clear_form
   end
 
   def increment_age
-    if self.age.get_value.is_a? Integer
-      self.age += 1
+    if self.age.call.is_a? Integer
+      # self.age += 1
+      self.age = self.age.call + 1
     else
-      self.age = self.age.get_value.to_i + 1
+      self.age = self.age.call.to_i + 1
     end
   end
 
   private
   def show_data
-    "#{name}さんは#{age}歳"
+    "#{name.call}さんは#{age.call}歳"
+  end
+
+  def clear_form
+    self.name = ''
+    self.age = 0
   end
 end

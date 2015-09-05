@@ -25,5 +25,10 @@
 
 
 
-`app_view_model = { user_form_view_model: #{UserFormViewModel.new} }`
-`ko.applyBindings(app_view_model)`
+%x{
+  app_view_model = {
+    user_form_view_model: #{UserFormViewModel.new},
+    user_list_view_model: #{UserListViewModel.new}
+  }
+  ko.applyBindings(app_view_model);
+}

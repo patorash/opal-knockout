@@ -2,6 +2,7 @@ module Knockout
   class ViewModel
     class << self
       attr_accessor :_observables
+      attr_accessor :_observable_arrays
       attr_accessor :_computed_methods
 
       def new( *args, &blk )
@@ -47,25 +48,25 @@ module Knockout
 
       private
       def define_observable_accessor(name)
-        attr_reader name
         self._observables ||= []
         self._observables << name
 
+        define_method name do
+          instance_variable_get(:"@#{name}").to_n
+        end
+
         define_method "#{name}=" do |value|
           observable = instance_variable_get(:"@#{name}")
-          # `#{observable}(#{value})`
           observable.set(value)
         end
       end
 
       def define_observable_array_accessor(name)
-        define_method name do
-          instance_variable_set(:"@#{name}", Knockout::ObservableArray.new) unless instance_variable_defined?(:"@#{name}")
-          instance_variable_get(:"@#{name}")
-        end
+        attr_reader name
+        self._observable_arrays ||= []
+        self._observable_arrays << name
 
         define_method "#{name}=" do |val|
-          instance_variable_set(:"@#{name}", Knockout::ObservableArray.new) unless instance_variable_defined?(:"@#{name}")
           observable_array = instance_variable_get(:"@#{name}")
           observable_array.set(val)
           self
@@ -79,7 +80,9 @@ module Knockout
 
     private
       def before_initialize
+        puts "before initialize"
         set_observables
+        set_observable_arrays
       end
 
       def after_initialize
@@ -88,9 +91,14 @@ module Knockout
       end
 
       def set_observables
-        (self.class._observables || []).each do |observable_name|
-          instance_variable_set(:"@#{observable_name}", Knockout::Observable.new(''))
-          # instance_variable_set(:"@#{observable_name}", `ko.observable('')`)
+        (self.class._observables || []).each do |name|
+          instance_variable_set(:"@#{name}", Knockout::Observable.new(''))
+        end
+      end
+
+      def set_observable_arrays
+        (self.class._observable_arrays || []).each do |name|
+          instance_variable_set(:"@#{name}", Knockout::ObservableArray.new([]))
         end
       end
 
