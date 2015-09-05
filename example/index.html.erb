@@ -5,8 +5,8 @@
 </head>
 <body>
 <form data-bind="with: user_form_view_model">
-  <label>Name: <input type="text" data-bind="value: name"></label>
-  <label>Age: <input type="number" data-bind="value: age"></label>
+  <label>Name: <input type="text" data-bind="value: name.$to_n()"></label>
+  <label>Age: <input type="number" data-bind="value: age.$to_n()"></label>
   <p data-bind="text: data"></p>
   <button type="button" data-bind="click: $increment_age">+</button>
   <button type="button" data-bind="click: $add_user_list">Add list</button>

@@ -7,8 +7,7 @@ module Knockout
     end
 
     def to_s
-      # `#@native`
-      get_value
+      @native.call.to_s
     end
 
     def to_n
@@ -16,19 +15,19 @@ module Knockout
     end
 
     def get_value()
-      `#@native()`
+      @native.call
     end
 
-    def set(val)
-      `#@native(#{val})`
+    def set(value)
+      @native.call(value)
     end
 
-    def +(val)
-      get_value.to_n.+(val)
+    def +(value)
+      get_value.to_n.+(value)
     end
 
-    def -(val)
-      get_value.to_n.-(val)
+    def -(value)
+      get_value.to_n.-(value)
     end
   end
 end

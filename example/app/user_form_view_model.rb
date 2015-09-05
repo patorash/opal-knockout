@@ -12,8 +12,11 @@ class UserFormViewModel < Knockout::ViewModel
   end
 
   def increment_age
-    self.age = self.age.to_i if self.age.is_a?(String)
-    self.age += 1
+    if self.age.get_value.is_a? Integer
+      self.age += 1
+    else
+      self.age = self.age.get_value.to_i + 1
+    end
   end
 
   private

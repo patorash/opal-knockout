@@ -51,10 +51,10 @@ module Knockout
         self._observables ||= []
         self._observables << name
 
-        define_method "#{name}=" do |val|
-          # instance_variable_set(:"@#{name}", Knockout::Observable.new) unless instance_variable_defined?(:"@#{name}")
+        define_method "#{name}=" do |value|
           observable = instance_variable_get(:"@#{name}")
-          observable.set(val)
+          # `#{observable}(#{value})`
+          observable.set(value)
         end
       end
 
@@ -90,6 +90,7 @@ module Knockout
       def set_observables
         (self.class._observables || []).each do |observable_name|
           instance_variable_set(:"@#{observable_name}", Knockout::Observable.new(''))
+          # instance_variable_set(:"@#{observable_name}", `ko.observable('')`)
         end
       end
 
