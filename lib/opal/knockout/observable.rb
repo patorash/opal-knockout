@@ -7,6 +7,7 @@ module Knockout
     end
 
     def to_s
+      # `#@native`
       get_value
     end
 
