@@ -74,10 +74,6 @@ module Knockout
       end
     end
 
-    # def computed(&block)
-    #   Knockout::Computed.new{ block.call }
-    # end
-
     private
       def before_initialize
         puts "before initialize"
@@ -92,18 +88,21 @@ module Knockout
 
       def set_observables
         (self.class._observables || []).each do |name|
-          # instance_variable_set(:"@#{name}", Knockout::Observable.new(''))
-          instance_variable_set(:"@#{name}", `ko.observable()`)
+          observable = `ko.observable()`
+          observable.instance_eval do
+            extend Knockout::Observable
+          end
+          instance_variable_set(:"@#{name}", observable)
         end
       end
 
       def set_observable_arrays
         (self.class._observable_arrays || []).each do |name|
-          instance_variable_set(:"@#{name}", `ko.observableArray()`)
-          observable_array = instance_variable_get(:"@#{name}")
+          observable_array = `ko.observableArray()`
           observable_array.instance_eval do
             extend Knockout::ObservableArray
           end
+          instance_variable_set(:"@#{name}", observable_array)
         end
       end
 

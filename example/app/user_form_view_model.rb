@@ -10,8 +10,7 @@ class UserFormViewModel < Knockout::ViewModel
   def add_user_list
 
     list = `app_view_model.user_list_view_model`
-    list.users.push(User.new(self.name.call, self.age.call))
-    # `#{list.users}.push(#{User.new(self.name.call, self.age.call)})`
+    list.users.push(User.new(self.name.to_s, self.age.to_s))
     clear_form
   end
 
@@ -26,7 +25,7 @@ class UserFormViewModel < Knockout::ViewModel
 
   private
   def show_data
-    "#{name.call}さんは#{age.call}歳"
+    "#{name.to_s}さんは#{age.to_s}歳"
   end
 
   def clear_form
