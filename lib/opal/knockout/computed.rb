@@ -9,11 +9,11 @@ module Knockout
     end
 
     def to_s
-      `#{@callback}()`
+      @callback.call
     end
 
     def to_n
-      `#{@callback}`
+      @callback
     end
   end
 end

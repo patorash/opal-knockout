@@ -4,6 +4,21 @@
   <title>opal-knockout example</title>
 </head>
 <body>
+<form data-bind="with: user_form_view_model">
+  <label>Name: <input type="text" data-bind="value: name"></label>
+  <label>Age: <input type="number" data-bind="value: age"></label>
+  <p data-bind="text: data"></p>
+  <button type="button" data-bind="click: $increment_age">+</button>
+  <button type="button" data-bind="click: $add_user_list">Add list</button>
+</form>
+
+<div data-bind="with: user_list_view_model">
+  <h3>ユーザーリスト</h3>
+  <ul data-bind="foreach: users">
+    <li><span data-bind="text: name"></span>さんは<span data-bind="text: age"></span>歳です。</li>
+  </ul>
+</div>
+
 <div data-bind="with: user">
   <dl>
     <dt>Name:</dt>

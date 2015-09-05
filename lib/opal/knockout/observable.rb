@@ -1,33 +1,15 @@
 module Knockout
-  class Observable
-
-    def initialize(value=nil)
-      @native = `ko.observable()`
-      set(value) unless value.nil?
-    end
-
+  module Observable
     def to_s
-      get_value
+      `#{self.call} + ''`
     end
 
-    def to_n
-      @native
+    def +(value)
+      self.call.+(value)
     end
 
-    def get_value()
-      `#@native()`
-    end
-
-    def set(val)
-      `#@native(#{val})`
-    end
-
-    def +(val)
-      get_value.to_n.+(val)
-    end
-
-    def -(val)
-      get_value.to_n.-(val)
+    def -(value)
+      self.call.-(value)
     end
   end
 end
