@@ -32,6 +32,8 @@ end
 
 ### Opal
 
+app/assets/javascripts/user_view_model.rb
+
 ```ruby:assets/javascripts/user_view_model.rb
 class User
   attr_accessor :first_name, :last_name
@@ -73,6 +75,9 @@ class UserViewModel < Knockout::ViewModel
 end
 ```
 
+app/assets/javascripts/application.rb
+
+
 ```ruby:assets/javascripts/application.rb
 #= require opal
 #= require knockoutjs
@@ -87,6 +92,8 @@ Knockout.apply_bindings($root_view_model)
 ```
 
 ### View
+
+app/views/users/index.html.slim
 
 ```slim:views/users/index.html.slim
 div data-bind="with: user"
