@@ -1,5 +1,6 @@
 class UserViewModel < Knockout::ViewModel
   attr_observable :name, :age
+  # attr_observable 12
   attr_observable_array :items, :words
 
   attr_computed :hoge do
@@ -7,8 +8,6 @@ class UserViewModel < Knockout::ViewModel
   end
 
   attr_computed :foo, :search_fghij
-
-  attr_computed :bar
 
   def initialize(name=nil, age=nil)
     # `debugger`

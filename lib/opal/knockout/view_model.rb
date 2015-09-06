@@ -14,29 +14,15 @@ module Knockout
       end
 
       def attr_observable(*names)
-        case
-          when names.instance_of?(Array)
-            names.each { |name| define_observable_accessor(name) }
-          when names.instance_of?(String) || names.instance_of?(Symbol)
-            define_observable_accessor(names)
-          else
-            # TODO: 例外
-        end
+        names.each { |name| define_observable_accessor(name) }
       end
 
       def attr_observable_array(*names)
-        case
-          when names.instance_of?(Array)
-            names.each { |name| define_observable_array_accessor(name) }
-          when names.instance_of?(String) || names.instance_of?(Symbol)
-            define_observable_array_accessor(names)
-          else
-            # TODO: 例外
-        end
+        names.each { |name| define_observable_array_accessor(name) }
       end
 
       def attr_computed(name, method_name=nil, &block)
-        # TODO: 例外
+        raise ArgumentError, "#{self.to_s}##{__method__}: You must set method_name or block" if method_name.nil? && !block_given?
         return if method_name.nil? && !block_given?
         self._computed_methods ||= {}
         self._computed_methods[name] = if method_name.nil?
@@ -48,6 +34,7 @@ module Knockout
 
       private
       def define_observable_accessor(name)
+        raise ArgumentError, "#{self.to_s}##{__method__}: name must String or Symbol" unless name.is_a?(String) || name.is_a?(Symbol)
         self._observables ||= []
         self._observables << name
 
@@ -61,6 +48,7 @@ module Knockout
       end
 
       def define_observable_array_accessor(name)
+        raise ArgumentError, "#{self.to_s}##{__method__}: name must String or Symbol" unless name.is_a?(String) || name.is_a?(Symbol)
         self._observable_arrays ||= []
         self._observable_arrays << name
 
@@ -76,13 +64,11 @@ module Knockout
 
     private
       def before_initialize
-        puts "before initialize"
         set_observables
         set_observable_arrays
       end
 
       def after_initialize
-        puts "after initialize"
         set_computed_variables
       end
 

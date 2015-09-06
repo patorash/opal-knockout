@@ -11,7 +11,7 @@ module Knockout
       if name.is_a?(String || Symbol) && view_model.is_a?(Knockout::ViewModel)
         self.view_models[name] = view_model
       else
-        # TODO: 例外
+        raise ArgumentError
       end
     end
 
