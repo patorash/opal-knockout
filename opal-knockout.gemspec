@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["chariderpato@gmail.com"]
   spec.summary       = %q{Opal library for knockout.js}
   spec.description   = %q{Opal library for knockout.js}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/patorash/opal-knockout"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
