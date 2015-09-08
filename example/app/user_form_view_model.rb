@@ -2,6 +2,9 @@ class UserFormViewModel < Knockout::ViewModel
   attr_observable :name, :age
   attr_computed :data, :show_data
 
+  validates :name, required: { only_if: Proc.new { puts self.age.call; self.age.to_s.to_i < 20 } }
+  validates :age, required: true, number: true
+
   def initialize(list_view_model)
     @list_view_model = list_view_model
     self.name = ''

@@ -4,6 +4,7 @@ module Knockout
       attr_accessor :_observables
       attr_accessor :_observable_arrays
       attr_accessor :_computed_methods
+      attr_accessor :_validates
 
       def new( *args, &blk )
         object = allocate
@@ -30,6 +31,11 @@ module Knockout
                                  else
                                    method_name
                                  end
+      end
+
+      def validates(name, options={})
+        self._validates ||= Hash.new { |h,k| h[k] = [] }
+        self._validates[name] << options
       end
 
       private
@@ -62,10 +68,20 @@ module Knockout
       end
     end
 
+    def is_valid
+      return true if self.class._validates.nil?
+
+      self.class._validates.keys.all? do |key|
+        observable = instance_variable_get(:"@#{key}")
+        `#{observable}.isValid()`
+      end
+    end
+
     private
       def before_initialize
         set_observables
         set_observable_arrays
+        set_validations
       end
 
       def after_initialize
@@ -100,6 +116,28 @@ module Knockout
           else
             instance_variable_set(:"@#{name}", Knockout::Computed.new{ self.method(method_name).call } )
           end
+        end
+      end
+
+      def set_validations
+        (self.class._validates || {}).each do |name, options|
+          observable = instance_variable_get(:"@#{name}")
+          raise ArgumentError, "Observable #{name} is not defined." if observable.nil?
+          conditions = options.each_with_object({}) do |hash, sum|
+            hash.each do |key, value|
+              if value.is_a? Hash
+                value = value.each_with_object({}) do |(k, v), sum_b|
+                  sum_b[k.camelize(:lower)] = if v.is_a? Proc
+                               `#{Proc.new { self.instance_eval(&v) } }`
+                             else
+                               v
+                             end
+                end
+              end
+              sum[key.camelize(:lower)] = value
+            end
+          end
+          `#{observable}.extend(#{conditions.to_n})`
         end
       end
   end

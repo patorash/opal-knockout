@@ -3,15 +3,19 @@ require 'native'
 module Knockout
   module ModuleMethods
     def apply_bindings(view_model, element=nil)
-      if element.nil?
-        if view_model.is_a? Knockout::RootViewModel
-          `ko.applyBindings(#{view_model.view_models.to_n})`
-        else
-          `ko.applyBindings(#{view_model.to_n})`
-        end
-      else
-        `ko.applyBindings(#{view_model.to_n}, #{element})`
-      end
+      `ko.applyBindings(#{binding_view_model(view_model).to_n}, #{element.to_n})`
+    end
+
+    def apply_bindings_with_validation(view_model, element=nil, options=nil)
+      `ko.applyBindingsWithValidation(#{binding_view_model(view_model).to_n}, #{element.to_n}, #{options.to_n})`
+    end
+
+    def binding_view_model(vm)
+      vm.is_a?(Knockout::RootViewModel) ? vm.view_models : vm
+    end
+
+    def validation_locale(locale)
+      `ko.validation.locale(#{locale})`
     end
   end
 
