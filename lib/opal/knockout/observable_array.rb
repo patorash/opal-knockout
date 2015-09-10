@@ -67,6 +67,14 @@ module Knockout
       `#{self}.destroyAll()`
     end
 
+    def only_destroyed
+      self.to_a.select { |item| Native(`#{item}._destroy`) }
+    end
+
+    def without_destroyed
+      self.to_a.reject { |item| Native(`#{item}._destroy`) }
+    end
+
     def index_of(str)
       `#{self}.indexOf(#{str})`
     end

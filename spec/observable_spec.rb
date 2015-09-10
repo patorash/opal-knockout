@@ -25,7 +25,7 @@ describe Knockout::Observable do
 
   subject { Element['#user_name'] }
 
-  it 'should binding name and age' do
+  it 'should binding name' do
     expect(subject.html).to eq('Bob')
   end
 
