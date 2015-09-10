@@ -6,13 +6,16 @@
 <body>
 <form data-bind="with: user_form_view_model">
   <label>Name: <input type="text" data-bind="textInput: name"></label>
-  <label>Age: <input type="number" data-bind="textInput: age"></label>
-  <p data-bind="text: data"></p>
   <p data-bind="validationMessage: name"></p>
+  <label>Age: <input type="number" data-bind="textInput: age"></label>
   <p data-bind="validationMessage: age"></p>
+
+  <p data-bind="text: data"></p>
   <button type="button" data-bind="click: $increment_age">+</button>
   <button type="button" data-bind="click: $add_user_list, enable: $is_valid()">Add list</button>
 </form>
+
+<hr>
 
 <div data-bind="with: user_list_view_model">
   <h3>ユーザーリスト</h3>
@@ -20,6 +23,8 @@
     <li><span data-bind="text: name"></span>さんは<span data-bind="text: age"></span>歳です。</li>
   </ul>
 </div>
+
+<hr>
 
 <div data-bind="with: user">
   <dl>

@@ -19,6 +19,7 @@ $root_view_model = Knockout::RootViewModel.new(
 # root_node = Native(`document.getElementsByTagName('body')[0]`)
 # Knockout.apply_bindings($root_view_model, root_node)
 # Knockout.apply_bindings($root_view_model)
+
 validation_config = {
     insertMessages: false,
 }
