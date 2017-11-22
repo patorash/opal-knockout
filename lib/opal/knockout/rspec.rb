@@ -59,7 +59,7 @@ module Browser
     end
   end
 end
-
-RSpec.configure do |config|
-  config.extend Browser::RSpecHelpers
-end
+#
+# RSpec.configure do |config|
+#   config.extend Browser::RSpecHelpers
+# end

@@ -1,19 +1,19 @@
-module Knockout
-  class Computed
-    def initialize(&block)
-      @callback = %x{
-        ko.computed(function() {
-          return #{block.call};
-        });
-      }
-    end
-
-    def to_s
-      @callback.call
-    end
-
-    def to_n
-      @callback
-    end
-  end
-end
+# module Knockout
+#   class Computed
+#     def initialize(&block)
+#       @callback = %x{
+#         ko.computed(function() {
+#           return #{block.call};
+#         });
+#       }
+#     end
+#
+#     def to_s
+#       @callback.call
+#     end
+#
+#     def to_n
+#       @callback
+#     end
+#   end
+# end

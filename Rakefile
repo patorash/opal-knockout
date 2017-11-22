@@ -6,8 +6,10 @@ require "bundler/gem_tasks"
 # Bundler::GemHelper.install_tasks
 
 require 'opal/rspec/rake_task'
-Opal::RSpec::RakeTask.new(:default) do |s|
-  s.index_path = 'spec/knockout/index.html.erb'
+Opal::RSpec::RakeTask.new(:default) do |server, task|
+  # task.pattern = 'spec/**/*_spec.rb'
+  # task.default_path = 'spec'
+  server.index_path = 'spec/knockout/index.html.erb'
 end
 
 Opal::RSpec::RakeTask.new(:zepto) do |s|

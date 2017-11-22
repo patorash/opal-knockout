@@ -1,9 +1,12 @@
 source 'https://rubygems.org'
 
+gem 'rack'
+gem 'opal-sprockets'
+gem 'opal-jquery', '~> 0.4.2'
 gem 'opal-knockout', path: '..'
 gem 'therubyracer'
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-knockoutjs', '~> 3.4.0'
-  # gem 'rails-assets-knockout-validation', '~> 2.0.3'
+  gem 'rails-assets-jquery', '~> 3.0.0'
+  gem 'rails-assets-knockoutjs', '~> 3.4.2'
 end
