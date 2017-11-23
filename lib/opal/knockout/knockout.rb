@@ -1,41 +1,18 @@
-require 'singleton'
+require 'forwardable'
 require 'native'
 
-class Knockout
-  include Singleton
-  include Native
-
-  def initialize
-    super `ko`
+module Knockout
+  extend SingleForwardable
+  @instance = Native(`ko`)
+  class << @instance
+    include Native
+    alias_native :apply_bindings, :applyBindings
+    alias_native :clean_node, :cleanNode
   end
 
-  alias_native :apply_bindings, :applyBindings
-  alias_native :clean_node, :cleanNode
+  self.def_delegators :@instance, :apply_bindings
 
-
-
-  # module ModuleMethods
-  #   def apply_bindings(view_model, element=nil)
-  #     `ko.applyBindings(#{binding_view_model(view_model).to_n}, #{element.to_n})`
-  #   end
-  #
-  #   def clean_node(element=nil)
-  #     element ||= Native(`document.body`)
-  #     `ko.cleanNode(#{element.to_n})`
-  #   end
-  #
-  #   # def apply_bindings_with_validation(view_model, element=nil, options=nil)
-  #   #   `ko.applyBindingsWithValidation(#{binding_view_model(view_model).to_n}, #{element.to_n}, #{options.to_n})`
-  #   # end
-  #
-  #   def binding_view_model(vm)
-  #     vm.is_a?(Knockout::RootViewModel) ? vm.view_models : vm
-  #   end
-  #
-  #   # def validation_locale(locale)
-  #   #   `ko.validation.locale(#{locale})`
-  #   # end
-  # end
-  #
-  # extend ModuleMethods
+  def self.to_n
+    @instance.to_n
+  end
 end
