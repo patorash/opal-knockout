@@ -8,11 +8,9 @@ module Knockout
     include Native
     alias_native :apply_bindings, :applyBindings
     alias_native :clean_node, :cleanNode
+    alias_native :ovservable_array, :observableArray
+    alias_native :pure_computed, :pureComputed
   end
 
-  self.def_delegators :@instance, :apply_bindings
-
-  def self.to_n
-    @instance.to_n
-  end
+  self.def_delegators :@instance, :apply_bindings, :observable
 end

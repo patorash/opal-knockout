@@ -20,6 +20,11 @@ require 'opal-knockout'
 # }
 # Knockout.apply_bindings_with_validation($root_view_model, validation_config)
 Document.ready? do
-  Knockout.apply_bindings(foo: 'bar')
-  # Knockout.applyBindings(foo: 'bar')
+  # baz = Knockout.observable()
+  # baz = 'aaa'
+  baz = Knockout::Observable.new("baz")
+  # baz = `#{Knockout::observable("aaa")}`
+  Knockout.apply_bindings(foo: 'bar', baz: baz)
+
+  # Knockout.apply_bindings(foo: 'bar')
 end
