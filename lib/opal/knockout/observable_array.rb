@@ -1,3 +1,20 @@
+require 'delegate'
+
+module Knockout
+  class ObservableArray < SimpleDelegator
+    def initialize(array, options={})
+      observable_array = `ko.observableArray()`
+      observable_array.call(array.to_n)
+      `#{observable_array.to_n}.extend(options)` unless options.empty?
+      super(observable_array)
+    end
+
+    def to_a
+      __getobj__.call
+    end
+  end
+end
+
 # module Knockout
 #   module ObservableArray
 #

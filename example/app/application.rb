@@ -24,10 +24,20 @@ Document.ready? do
   computed_baz = Knockout::ComputedObservable.new do
     "Hello #{baz.to_s}!"
   end
+  array = [
+      {name: 'Bob', age: 23},
+      {name: 'Tom', age: 24},
+      {name: 'Aran', age: 25},
+      {name: 'Taro', age: 26},
+      {name: 'Kim', age: 27},
+  ]
+  user_list = Knockout::ObservableArray.new(array)
+
   Knockout.apply_bindings(
       foo: 'bar',
       baz: baz,
-      computed_baz: computed_baz
+      computed_baz: computed_baz,
+      user_list: user_list
   )
 
   # Knockout.apply_bindings(foo: 'bar')
