@@ -39,10 +39,11 @@ Document.ready.then do
     ]
     user_list = Knockout::ObservableArray.new(array)
     user_list.to_a.each do |user|
-      p user.name
-      p user.age
+      p user["name"]
+      p user["age"]
     end
-    puts user_list[1]
+    p user_list[1]["name"]
+    p user_list.to_s
     user_list.push(name: 'New Person', age: 20)
     # p user_list.delegate_sd_obj.call
     # user_list.remove(user_list[1])
@@ -51,13 +52,22 @@ Document.ready.then do
       user_list.remove_all()
     end
 
+    add = Proc.new do
+      user_list.push(name: 'Next Person', age: 21)
+    end
+
     Knockout.apply_bindings(
         foo: 'bar',
         baz: baz,
         computed_baz: computed_baz,
         user_list: user_list,
-        remove: remove
+        remove: remove,
+        add: add
     )
+    p user_list.pop
+    p user_list.shift
+    p user_list.size
+    user_list.delete_at(2)
   # end
 end
 
