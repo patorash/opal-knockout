@@ -2,6 +2,9 @@ require 'delegate'
 
 module Knockout
   class Observable < SimpleDelegator
+
+    # @param [Object] value
+    # @option [Hash] options
     def initialize(value, options={})
       observable = `ko.observable()`
       observable.call(value.to_n)

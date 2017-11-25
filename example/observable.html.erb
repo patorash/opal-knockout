@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>opal-knockout example - observable</title>
+  <%= javascript_include_tag @server.main %>
+</head>
+<body>
+<h1>Example: Knockout::Observable</h1>
+<form id="example-observable">
+  <dl>
+    <dt><label for="title">Title</label></dt>
+    <dd><input id="title" name="title" type="text" data-bind="textInput: title"></dd>
+    <dt><label for="content">Content</label></dt>
+    <dd><textarea id="content" name="content" data-bind="textInput: content"></textarea></dd>
+  </dl>
+</form>
+<hr>
+<dl>
+  <dt>Title</dt>
+  <dd data-bind="text: title"></dd>
+  <dt>Content</dt>
+  <dd data-bind="text: content"></dd>
+</dl>
+</body>
+</html>
