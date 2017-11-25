@@ -1,7 +1,20 @@
 require 'delegate'
+require 'native'
 
 module Knockout
+  # class ObservableArray
+  #   include Native
+  #
+  #   def initialize(array, options={})
+  #     super `ko.observableArray(#{array.to_n})`
+  #   end
+  #
+  #   alias_native :remove_all, :removeAll
+  #   native_accessor :push
+  # end
+
   class ObservableArray < SimpleDelegator
+
     def initialize(array, options={})
       observable_array = `ko.observableArray()`
       observable_array.call(array.to_n)
@@ -10,8 +23,21 @@ module Knockout
     end
 
     def to_a
-      __getobj__.call
+      Native(`#{self.call}`)
     end
+
+    # def [](i)
+    #   Native(`#{self.call[i]}`)
+    # end
+
+    def push(item)
+      self.call.push(item.to_n)
+    end
+
+    def remove_all
+      `#{self.__getobj__}.removeAll()`
+    end
+
   end
 end
 

@@ -19,12 +19,13 @@ require 'opal-knockout'
 #     insertMessages: false,
 # }
 # Knockout.apply_bindings_with_validation($root_view_model, validation_config)
-Document.ready? do
-  if Element.find('#example-observable').is '*'
-    title = Knockout::Observable.new('')
-    content = Knockout::Observable.new('')
-    Knockout.apply_bindings(title: title, content: content)
-  else
+
+Document.ready.then do
+  # if Element.find('#example-observable').is '*'
+  #   title = Knockout::Observable.new('')
+  #   content = Knockout::Observable.new('')
+  #   Knockout.apply_bindings(title: title, content: content)
+  # else
     baz = Knockout::Observable.new("baz")
     computed_baz = Knockout::ComputedObservable.new do
       "Hello #{baz.to_s}!"
@@ -37,12 +38,31 @@ Document.ready? do
         {name: 'Kim', age: 27},
     ]
     user_list = Knockout::ObservableArray.new(array)
+    user_list.to_a.each do |user|
+      p user.name
+      p user.age
+    end
+    puts user_list[1]
+    user_list.push(name: 'New Person', age: 20)
+    # p user_list.delegate_sd_obj.call
+    # user_list.remove(user_list[1])
+
+    remove = Proc.new do
+      user_list.remove_all()
+    end
 
     Knockout.apply_bindings(
         foo: 'bar',
         baz: baz,
         computed_baz: computed_baz,
-        user_list: user_list
+        user_list: user_list,
+        remove: remove
     )
-  end
+  # end
 end
+
+# def push_array
+#   @user_list.push(name: 'New Person', age: 20)
+# end
+
+# `window`.push_array = push_array
