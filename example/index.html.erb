@@ -27,6 +27,9 @@ test
     <tr>
       <td data-bind="text: name"></td>
       <td data-bind="text: age"></td>
+      <td>
+        <button type="button" data-bind="click: $parent.destroy">Destroy</button>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -50,6 +50,7 @@ module Knockout
       @observable_array.delete_at(i)
       self.__getobj__.call(@observable_array.to_n)
     end
+    alias_method :remove_at, :delete_at
 
     def remove_all
       @observable_array.clear
@@ -57,7 +58,43 @@ module Knockout
     end
     alias_method :clear, :remove_all
 
+    def destroy(item)
+      `debugger`
+      true
+    end
 
+    def destroy_at(i)
+      item = @observable_array[i]
+      if item.is_a? Hash
+        item['_destroy'] = true
+      else
+        item.instance_variable_set(:@_destroy, true)
+      end
+      @observable_array[i] = item
+      # `#{self.__getobj__}[#{i}].destroy()`
+      self.__getobj__.call(@observable_array.to_n)
+    end
+
+    def destroy_all
+      @observable_array.each do |item|
+        if item.is_a? Hash
+          item['_destroy'] = true
+        else
+          item.instance_variable_set(:@_destroy, true)
+        end
+      end
+      self.__getobj__.call(@observable_array.to_n)
+    end
+
+    def slice(_start=0, _end=nil)
+      if _end.nil?
+        `#{self.__getobj__}.slice(#{_start})`
+        @observable_array.slice!(_start)
+      else
+        `#{self.__getobj__}.slice(#{_start}, #{_end})`
+        @observable_array.slice!(_start, _end)
+      end
+    end
   end
 end
 

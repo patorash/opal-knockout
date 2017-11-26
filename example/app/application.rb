@@ -67,7 +67,9 @@ Document.ready.then do
     p user_list.pop
     p user_list.shift
     p user_list.size
-    user_list.delete_at(2)
+    # user_list.delete_at(2)
+    # user_list.destroy_at(1)
+    # user_list.destroy_all
   # end
 end
 
